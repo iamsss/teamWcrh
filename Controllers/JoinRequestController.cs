@@ -11,6 +11,7 @@ namespace teamWcrh.Controllers
     {
         
         private readonly teamWCRHDbContext context;
+        
         public JoinRequestController(teamWCRHDbContext context)
         {
             this.context = context;
@@ -22,5 +23,6 @@ namespace teamWcrh.Controllers
         {
             return context.JoinRequests.ToList();
         }
+
     }
 }

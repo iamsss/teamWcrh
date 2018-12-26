@@ -14,6 +14,8 @@ namespace teamWcrh.Models
         [Required]
         [StringLength(500)]
         public string Message { get; set; }
+        public string Status { get; set; }
+        public bool Spam { get; set; }
         public DateTime CreatedOn { get; set; }
     }
 }

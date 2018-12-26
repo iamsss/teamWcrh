@@ -9,6 +9,13 @@ namespace teamWcrh.Models
         [Required]
         [StringLength(50)]
         public string Name { get; set; }
+        [Required]
+        [StringLength(50)]
+        public string Username { get; set; }
+        [Required]
+        [StringLength(50)]
+        public string Password { get; set; }
+        public string UserRole { get; set; }
         
         [StringLength(100)]
         public string Email { get; set; }
@@ -61,7 +68,7 @@ namespace teamWcrh.Models
         [StringLength(255)]
         public string ProfileUrl { get; set; }
         public string GalleryImage { get; set; }
-        
+
        public IList<UserEvent> UserEvents { get; set; }
        public IList<UserProject> UserProjects { get; set; }
 

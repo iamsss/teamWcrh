@@ -1,0 +1,327 @@
+body{    
+    font-family: 'Slabo 27px', serif;
+    background: #9153de24;
+    }
+    
+    .navflow{
+        display: contents;
+    }
+    
+    
+    .bgTransparent {
+        background: transparent;
+      transition-duration: 0.5s;
+      transition-timing-function: linear;
+    }
+    .bgNotTransparent {
+        background: #532396;
+        box-shadow: 1px 1px 1px #0000009e !important;
+      transition-timing-function: linear;
+    }
+    
+    
+    .zeroBoxShadow{
+        box-shadow: 0 0 0 0;
+    }
+    
+    
+    .marginBig{
+        margin-top: 60px;
+    }
+    
+    
+    .indexbannerGrad{
+        background-image: linear-gradient(to right bottom, rgba(95, 114, 189, 0.8), rgba(155, 35, 234, 0.8))
+    }
+    
+    .zindexHigh{
+        z-index: 100;
+    }
+    
+    .navHeader{
+        font-family: 'Staatliches', cursive;
+        color: white;
+        letter-spacing: 15px;
+    }
+    
+    .headerTitle{
+        margin-bottom: 5px;
+    }
+    .subheaderTitle{
+        font-size: 20px;
+        letter-spacing: 10px;
+        margin-top: 0;
+        color: #ffffffa3;
+    }
+    
+    
+    .subheaderText{
+        text-transform: uppercase;
+        letter-spacing: 2px;
+        font-family: inherit;
+        color: #242325a3;
+        font-size: 18px;
+        font-weight: bold;
+    }
+    
+    
+    
+    .header__logo-box {
+        width: 50px;
+        
+    }
+    
+    img.header__logo {
+        width: 100%;
+    }
+    
+    .socialMenuIcon {
+        font-size: 20px;
+        padding: 12px;
+        letter-spacing: 2px;
+        font-family: 'Staatliches', cursive;
+    }
+    .rightMargin {
+        margin-right: 100px;
+    }
+    
+    .btnP{
+        font-family: 'Staatliches', cursive;
+        letter-spacing: 2px;
+        font-size: 18px;
+    }
+    
+    
+    .section {
+        padding: 70px 0;
+    }
+    
+    .text-center {
+        text-align: center!important;
+    }
+    .main-raised {
+        margin: -60px 30px 0;
+        border-radius: 6px;
+        box-shadow: 0 16px 24px 2px rgba(0,0,0,.14), 0 6px 30px 5px rgba(0,0,0,.12), 0 8px 10px -5px rgba(0,0,0,.2);
+    }
+    .main {
+        background: #fff;
+        position: relative;
+        z-index: 3;
+        margin-bottom: -100px;
+    }
+    .textP {
+        color: #42344ea3;
+        font-size: 20px;
+        text-align: justify;
+    }
+    
+   
+    .WebIcon {
+        font-size: 4rem;
+    }
+    
+    .info {
+        padding: 0px 25px;
+    }
+    img.img-raised.rounded-circle.img-fluid {
+        width: 100%;
+        display: block;
+    }
+    a.btn1 {
+        font-size: 20px;
+        padding: 15px 15px;
+    }
+    
+    img.ProjectImg {
+        width: 75% !important;
+        margin: 10px auto;
+    }
+    
+    .marginTopBig {
+        margin-top: 100px;
+    }
+    .footer-logo{
+        width:100px;
+    }
+    .page-footer {
+        background-image: linear-gradient(to right bottom, #532396, rgba(25, 2, 10, 0.79))
+    }
+    
+    .letterSpace2{
+        letter-spacing: 2px;
+    }
+    nav{
+        
+        line-height: 46px;
+    }
+    .navCl {
+        background: #532396;
+        box-shadow: 1px 1px 1px #0000009e;
+    }
+    
+    nav .brand-logo {
+        position: absolute;
+        color: #fff;
+        display: inline-block;
+        font-size: 2.1rem;
+        margin: 15px;
+    }
+    .sideBarMenu{
+        background-image: linear-gradient(to right bottom, rgba(95, 114, 189, 0.8), rgba(155, 35, 234, 0.8));
+        
+    }
+    .padding25{
+        
+        padding: 25px !important;
+    }
+    
+   
+    .signInSideBar {
+        font-family: 'Staatliches', cursive;
+        letter-spacing: 2px;
+        padding: 0 16px !important;
+    }
+    a.sideBarLink {
+        font-family: 'Staatliches', cursive;
+        letter-spacing: 2px;
+    }
+    @media only screen and (min-width: 993px){
+    .containerEdited {
+        width: 86%;
+    }
+    }
+    @media only screen and (min-width: 601px){
+        nav, nav .nav-wrapper i, nav a.sidenav-trigger, nav a.sidenav-trigger i {
+            height: 64px;
+            line-height: 50px;
+        
+        }
+        }
+    @media only screen and (max-width: 992px){
+    
+        nav .brand-logo {
+            margin: 8px 0;
+        }
+        nav, nav .nav-wrapper i, nav a.sidenav-trigger, nav a.sidenav-trigger i {
+            line-height: 64px;
+        }
+        .section {
+            padding: 40px 0;
+        }
+    }
+    @media only screen and (max-width: 601px){
+    
+        nav, nav .nav-wrapper i, nav a.sidenav-trigger, nav a.sidenav-trigger i {
+            line-height: 56px;
+        }
+        nav .brand-logo {
+            margin: 6px 0;
+        }
+    
+        .navHeader {
+            letter-spacing: 6px;
+        }
+        .main-raised {
+            margin: -60px 12px -100px 12px;
+        }
+    
+       
+        h2.title {
+            font-size: 2.6rem;
+        }
+    
+    }
+    
+    
+    @media only screen and (max-width: 401px){
+        .main-raised {
+            margin: -35px 8px -100px 8px;
+            
+        }
+        h2.title {
+            font-size: 2rem;
+            font-weight: 600;
+        }
+    }
+
+
+
+
+
+    /* Materialize Overwrite */
+
+    .parallax-container {
+        height: 400px;
+    }
+    .modal.datepicker-modal.open {
+        width: 100%;
+    }
+
+    /* Main Site Content */
+
+    .marginAuto{
+        margin: auto !important;
+    }
+
+    .features {
+        margin-top: -125px;
+    }
+    img.circle.responsive-img.s2 {
+        max-width: 150px;
+    }
+    .profileTitle {
+        font-size: 35px;
+    }
+ 
+    .titleFont{   
+        font-family: 'Staatliches', cursive !important;
+    }
+    .ls2{
+        letter-spacing: 2px !important;
+    }
+    .subheadingTitle{
+        color: #461b49a3;
+    }
+    .pt30{
+        padding-top: 30px !important;
+    }
+
+    
+    .noMargin{
+        margin:  0px !important;
+    }
+
+    .fixAddbtn{
+        position: fixed;
+        z-index: 7878;
+        bottom: 30px;
+        right: 30px;
+    }
+
+    .mg5H{
+        margin: 0 5px !important;
+    }
+    .mg30H{
+        margin: 0 30px !important;
+    }
+    .p10{
+        padding: 10px !important;
+    }
+
+    .deadline {
+        color: #0a0a0ad1;
+    }
+    .maxW300{
+        max-width: 300px !important;
+    }
+    .noPadding{
+        padding: 0px !important;
+    }
+    @media only screen and (max-width: 993px){
+        .fixAddbtn{
+            
+        bottom: 10px;
+        right: 10px;
+        }
+        }

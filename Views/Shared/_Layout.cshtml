@@ -1,0 +1,50 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"]</title>
+
+    <title>teamWCRH - We Can Reach Height</title>
+     <!--Import Google Icon Font-->
+     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.1/css/all.css" integrity="sha384-gfdkjb5BdAXd+lj+gudLWI+BXq4IuLW5IT+brZEZsLFm++aCMlF1V92rMkPaX4PP" crossorigin="anonymous">
+     <script defer src="https://use.fontawesome.com/releases/v5.6.1/js/all.js" integrity="sha384-R5JkiUweZpJjELPWqttAYmYM1P3SNEJRM6ecTQF05pFFtxmCO+Y1CiUhvuDzgSVZ" crossorigin="anonymous"></script>   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+     <link href="https://fonts.googleapis.com/css?family=Slabo+27px|Staatliches" rel="stylesheet">
+     <!--Import materialize.css-->
+     <link type="text/css" rel="stylesheet" href="~/css/materialize.min.css"  media="screen,projection"/>
+     <link type="text/css" rel="stylesheet" href="~/css/style.css"  media="screen,projection"/>
+     
+    <script type="text/javascript" src="js/jquerry.min.js"></script> 
+    <script type="text/javascript" src="js/materialize.min.js"></script> 
+    
+</head>
+<body>
+ 
+            @RenderBody()
+    
+   
+      
+    <script src="~/js/site.js" asp-append-version="true"></script>
+
+    
+<footer class="page-footer">
+            <div class="marginTopBig"></div>
+            <div class="container center">
+              <img src="/img/wcrh-white.png" class="footer-logo" />
+            </div>
+                
+                <div class="footer-copyright">
+                  <div class="container letterSpace2">
+                  © 2018 teamWCRH
+                </div>
+                </div>
+              </footer>
+              @RenderSection("Scripts", required: false)
+              <script>
+                   $(document).ready(function(){
+    $('.scrollspy').scrollSpy();
+  });
+              </script>
+
+</body>
+</html>

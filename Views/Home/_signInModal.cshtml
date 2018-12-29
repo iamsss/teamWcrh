@@ -7,9 +7,9 @@
                 <div class="row">
                   <div class="col s12">
                     <div class="form-group bmd-form-group">
-                      <label class="bmd-label-floating">Username</label>
-                      <input id="userName" type="text" required class="form-control validate">
-                      <span id="userNameErrorMsg" class="helper-text" data-error="Please enter your username"></span>
+                      <label class="bmd-label-floating">UserId</label>
+                      <input id="userId" type="number" required class="form-control validate">
+                      <span id="userIdErrorMsg" class="helper-text" data-error="Please enter your userId"></span>
                     </div>
                   </div>
                   <div class="col s12">
@@ -22,7 +22,10 @@
                 </div>
                 <div class="row">
                   <div class="col-md-4 ml-auto mr-auto text-center">
-                    <input type="submit" class="btn btn-primary btn-raised pink" value="Sign In">
+                    <div id="signInLoader" class="preloaderDiv hide">                    
+                         <partial name="~/Views/Shared/Helper/_spinner.cshtml" />
+                  </div>
+                    <input id="signInbtn" type="submit" class="btn btn-primary btn-raised pink" value="Sign In">
                      
                   </div>
                 </div>
@@ -32,15 +35,28 @@
     </div>
   </div>
   <script>
-    function UserLogin() {
+
+    var signInLoader = $("#signInLoader");
+    var signInbtn = $("#signInbtn");
+
+    function GetUserLoginData() {
      return {
-      UserName : $("#userName").val(),
+      UserId : $("#userId").val(),
       Password : $("#userPassword").val()
     }
     }
     function login(){
-      var user = UserLogin();
-      alert(user.UserName + " - " + user.Password);
+      
+    signInLoader.removeClass("hide");
+    signInbtn.addClass("hide");
+
+
+      var user = GetUserLoginData();
+      alert(user.UserId + " - " + user.Password);
+
+    
+    signInLoader.addClass("hide");
+    signInbtn.removeClass("hide");
     }
   </script>
             

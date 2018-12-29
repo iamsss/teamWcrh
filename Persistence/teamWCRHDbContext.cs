@@ -46,6 +46,11 @@ namespace teamWcrh.Persistence
         }
 
         public DbSet<JoinRequest> JoinRequests { get; set; }
+        public DbSet<User> Users { get; set; }
+        public DbSet<Event> Events { get; set; }
+        public DbSet<Feed> Feeds { get; set; }
+        public DbSet<Project> Projects { get; set; }
+        
 
     }
 }

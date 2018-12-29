@@ -1,8 +1,13 @@
+using System.ComponentModel.DataAnnotations;
+
 namespace teamWcrh.Controllers.Resources
 {
     public class LoginResource
     {
-        public int UserName { get; set; }
-        public int Password { get; set; }
+        [Required]
+        public int UserId { get; set; }
+        [Required]
+        public string Password { get; set; }
+
     }
 }

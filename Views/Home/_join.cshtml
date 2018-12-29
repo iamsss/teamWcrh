@@ -1,51 +1,198 @@
   <div id="join" class="section section-contacts scrollspy">
                 <div class="row">
+                  
                   <div class="col m8 offset-m2">
                     <h2 class="text-center title">Work with us</h2>
-                     <form class="contact-form">
+                    <form id="joinForm" onsubmit="sendJoinRequest(); return false;">
                       <div class="row">
                         <div class="col m6 s12">
                           <div class="form-group bmd-form-group">
                             <label class="bmd-label-floating">Your Name</label>
-                            <input type="email" class="form-control">
+                            <input id="nameInp" type="text" required class="form-control validate" minlength="3" maxlength="25" onkeyup="formValidation()">
+                            <span id="nameErrorMsg" class="helper-text" data-error="Please enter your name"></span>
                           </div>
                         </div>
                         <div class="col m6 s12">
                           <div class="form-group bmd-form-group">
                             <label class="bmd-label-floating">Your Email</label>
-                            <input type="email" class="form-control">
+                            <input id="emailInp" type="email" required class="form-control validate" onkeyup="formValidation()">
+                            <span id="emailErrorMsg" class="helper-text" data-error="Please enter your email"></span>
                           </div>
                         </div>
                         <div class="col m6 s12">
                           <div class="form-group bmd-form-group">
                             <label class="bmd-label-floating ">Mobile Number</label>
-                            <input type="number" class="form-control">
+                            <input id="mobileInp" type="number" required class="form-control validate" onkeyup="formValidation()" maxlength="10" max="9999999999" min="1000000000">
+                            <span id="mobileErrorMsg" class="helper-text" data-error="Please enter your mobile number"></span>
                           </div>
                         </div>
                         <div class="col m6 s12">
                             <label class="bmd-label-floating">Enter Skill</label>
-                          <div class="chips chips-placeholder margin0"></div>
+                          <div id="skillchip" class="chips chips-placeholder margin0"></div>
                         </div>
                       </div>
                       <div class="form-group bmd-form-group">
                         <label for="exampleMessage" class="bmd-label-floating">Your Message</label>
-                        <textarea type="email" class="materialize-textarea" rows="4" id="exampleMessage"></textarea>
+                        <textarea id="msgInp" required type="email" class="materialize-textarea" rows="4" id="exampleMessage"></textarea>
                       </div>
                       <div class="row">
-                        <div class="col-md-4 ml-auto mr-auto text-center">
-                          <button class="btn btn-primary btn-raised pink">
-                            Join Now
-                          </button>
+                        <div class="text-center">
+                          <div id="loader" class="preloaderDiv hide">
+                 
+                  <div  class="preloader-wrapper active marginAuto">
+    <div class="spinner-layer spinner-red-only">
+      <div class="circle-clipper left">
+        <div class="circle"></div>
+      </div><div class="gap-patch">
+        <div class="circle"></div>
+      </div><div class="circle-clipper right">
+        <div class="circle"></div>
+      </div>
+    </div>
+  </div>
+
+
+                  </div>
+                          <input type="submit" id="btnsend" class="btn btn-primary btn-raised pink" value="Join Now" >
                         </div>
                       </div>
-                    </form>
+                      </form>
                   </div>
                 </div>
               </div>
               
-              <script>
-                  $('.chips-placeholder').chips({
+    <script>
+
+
+    
+
+    var nameInp = $("#nameInp");
+    var emailInp = $("#emailInp");
+    var mobileInp = $("#mobileInp");
+    var skillInp = $("#skillInp");
+    var msgInp = $("#msgInp");
+    var btnsend = $("#btnsend");
+    var loader = $("#loader");
+
+    var errorMessage = {
+      name:{
+        minlength:"Name should be minimum of 3 character",
+        required: "Please enter your name"
+      },
+      email:{
+        required:"Please enter your email",
+        format:"Email format is not valid"
+      },
+      mobile:{
+        required:"Please enter your mobile number",
+        format:"Please enter 10 digit mobile number"
+      },
+      message:{
+        required:"Please enter your message",
+        minlength:"message is too small"
+      }
+    }
+
+    $('.chips-placeholder').chips({
     placeholder: 'Enter your skill',
     secondaryPlaceholder: '+Skill',
   });
+
+  var Joindata = {
+    Name: "",
+    Email: "",
+    Skill: "",
+    Message: "",
+    MobileNo: ""
+  };
+
+  function sendJoinRequest() {    
+    initilizeData();
+    postData();
+    clearData();
+
+  }
+  function postData(){
+    loader.removeClass("hide");
+    btnsend.addClass("hide");
+   fetch('/api/JoinRequest', {
+    method: 'post',
+    headers: {
+        'Accept': 'application/json, text/plain, */*',
+        'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(Joindata)
+   })
+  .then(function (response) {
+    return response.json();
+   })
+  .then(function (result) {
+      swal("Thank you!", "Your Request is sent successfully", "success");
+      console.log(result);
+  })
+  .catch(function (error) {
+       alert("Failed");
+       console.log('Request failed', error);
+}).finally(function() {
+  btnsend.removeClass("hide");
+  loader.addClass("hide");
+   });
+  }
+
+  function clearData(){
+     nameInp.val("");
+     emailInp.val("");
+     msgInp.val("");
+     mobileInp.val("");
+     
+     var instance = M.Chips.getInstance(document.getElementById('skillchip'));
+     instance.deleteChip();
+     
+  }
+  
+  function initilizeData(){
+    var skilldata = chips2Input().toString() || "No skill";
+    Joindata.Name = nameInp.val(),
+    Joindata.Email = emailInp.val(),
+    Joindata.Message = msgInp.val(),
+    Joindata.MobileNo = mobileInp.val(),
+    Joindata.Skill =  skilldata;
+  }
+
+  function chips2Input(){
+            var instance = M.Chips.getInstance(document.getElementById('skillchip'));
+            chipData =  "No Skill";
+            
+            for(var i=0; i<instance.chipsData.length; i++){
+                if(chipData == "No Skill")
+                    chipData = instance.chipsData[i].tag;
+                else{
+                    chipData += ','+instance.chipsData[i].tag; //csv
+                }
+            }
+           return chipData;
+        }
+
+  function formValidation() {
+
+    if( nameInp.val().length<3 && nameInp.val().length != 0){    
+      $("#nameErrorMsg").attr("data-error",errorMessage.name.minlength);
+    } else{
+       $("#nameErrorMsg").attr("data-error",errorMessage.name.required);
+    }
+
+    if( emailInp.val().length==0) {    
+      $("#emailErrorMsg").attr("data-error",errorMessage.email.required);
+    }else {
+       $("#emailErrorMsg").attr("data-error",errorMessage.email.format);
+    }
+
+    if( mobileInp.val().length == 0){    
+       $("#mobileErrorMsg").attr("data-error",errorMessage.mobile.required);
+    }else{
+      $("#mobileErrorMsg").attr("data-error",errorMessage.mobile.format);
+    }
+
+  }
+  
               </script>

@@ -1,9 +1,8 @@
-using System;
 using System.ComponentModel.DataAnnotations;
 
-namespace teamWcrh.Models
+namespace teamWcrh.Controllers.Resources
 {
-    public class JoinRequest
+    public class JoinRequestResource
     {
         public int JoinRequestId { get; set; }
         [Required]
@@ -13,14 +12,8 @@ namespace teamWcrh.Models
         public string Email { get; set; }
         [StringLength(500)]
         public string Skill { get; set; }
-        public int? ProjectInterestedIn { get; set; }
-        [StringLength(500)]
         public string Message { get; set; }
         [StringLength(15)]
         public string MobileNo { get; set; }
-        
-        public DateTime CreatedOn { get; set; }
-        public DateTime LastUpdate { get; set; }
-
     }
 }

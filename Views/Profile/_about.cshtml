@@ -1,0 +1,26 @@
+<div id="vue_about">
+    <div class="row">
+                        <div class="col s12 marginAuto center">
+                            <img src="img/imgteam1.png" alt="" class="circle responsive-img s2">
+                            <!-- notice the "circle" class -->
+                        </div>
+
+        </div>
+                    <div class="name">
+                        <h3 class="title profileTitle">{{ ur.name }}</h3>
+                        <h6 class="titleFont ls2 subheadingTitle">{{ ur.primaryOccupation }} </h6>
+                        <div class="Rating titleFont ls2 subheadingTitle">{{ ur.rp }} <span class="red-text">RP</span><b> | </b>
+                            {{ ur.cp }}<span class="blue-text"> CP</span></div>
+                    </div>
+</div>
+
+<script>
+    user = JSON.parse(localStorage.getItem("UserResource"));
+   
+    var about_vue = new Vue({
+  el: '#vue_about',
+  data: {
+    ur: user
+  }
+})
+</script>

@@ -1,0 +1,74 @@
+
+    <div class="navbar-fixed navflow">
+
+        <nav class="bgTransparent zeroBoxShadow zindexHigh">
+            <div class="nav-wrapper">
+                <div class="brand-logo header__logo-box">
+                    <img src="img/wcrh-white.png" alt="Logo" class="header__logo" />
+                </div>
+                <a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a>
+                <ul class="right hide-on-med-and-down rightMargin">
+                    <li><a href="sass.html" class="socialMenuIcon"><i class="fab fa-facebook"></i></a></li>
+                    <li><a href="badges.html" class="socialMenuIcon"><i class="fab fa-twitter-square"></i></a></li>
+                    <li><a href="collapsible.html" class="socialMenuIcon"><i class="fab fa-instagram"></i></a></li>
+                    <li><a href="#login" class="socialMenuIcon modal-trigger"><i class="fas fa-user"></i> Sign Out</a></li>
+                </ul>
+            </div>
+        </nav>
+    </div>
+    <ul class="sidenav" id="mobile-demo">
+        <li>
+            <div class="user-view center sideBarMenu padding25">
+
+                <a href="#user"><img class="circle marginAuto" src="img/guest.png"></a>
+                <a href="#name"><span class="white-text name">Welcome, Saurav Kumar</span></a>
+                <a href="#login" class="btn waves-effect waves-light pink modal-trigger  signInSideBar"><i class="fas fa-user"></i>
+                    Sign Out</a>
+            </div>
+        </li>
+
+        <li><a href="#editProfile" class="sideBarLink modal-trigger">Setting</a></li>
+    </ul>
+
+
+    <div id="index-banner" class="parallax-container indexbannerGrad">
+
+        <div class="container marginBig ">
+            <div class="row">
+                <div class="col m8 l6 s12">
+                    <h1 class="title navHeader headerTitle center">TEAMWCRH</h1>
+                    <h4 class=" navHeader subheaderTitle center">We Can Reach Height</h4>
+                    <br>
+
+                </div>
+                <div class="col-md-6"></div>
+            </div>
+        </div>
+        <div class="parallax"><img src="img/img1.jpg" alt="Unsplashed background img 1"></div>
+    </div>
+
+    <script>
+        $(document).ready(function () {
+
+            $(window).scroll(function () { // check if scroll event happened
+
+                if ($(document).scrollTop() > 300) { // check if user scrolled more than 50 from top of the browser window
+                    // if yes, then change the color of class "bgTransparent" to white (#f8f8f8)        
+                    $(".bgTransparent").addClass("bgNotTransparent");
+                } else {
+                    $(".bgTransparent").removeClass("bgNotTransparent");
+                }
+            });
+        });
+
+        
+        $(document).ready(function () {
+            $('.sidenav').sidenav({
+                menuWidth: 300,
+                closeOnClick: true, // <--- CHECK THIS OUT
+            });
+        });
+        $(document).ready(function () {
+            $('.parallax').parallax();
+        });
+    </script>

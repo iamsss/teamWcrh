@@ -49,15 +49,41 @@
       
     signInLoader.removeClass("hide");
     signInbtn.addClass("hide");
-
-
-      var user = GetUserLoginData();
-      alert(user.UserId + " - " + user.Password);
-
     
+    var LoginUser = GetUserLoginData();
+      
+    fetch('/api/Login', {
+    method: 'post',
+    headers: {
+        'Accept': 'application/json, text/plain, */*',
+        'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(LoginUser)
+   })
+  .then(function (response) {
+    return response.json();
+   })
+  .then(function (result) {
+    if(result.status){
+      console.log(result);
+      swal("Login Success", "Your Request is sent successfully", "success");
+      localStorage.setItem("Token", result.token);
+      localStorage.setItem("UserResource",JSON.stringify(result.userResource));
+          } else {
+       swal("Ouppss", result.errorMessage, "error");
+    }
+  })
+  .catch(function (error) {
+       alert("Failed");
+       console.log('Request failed', error);
+}).finally(function() {
     signInLoader.addClass("hide");
     signInbtn.removeClass("hide");
+    checkedLogInOrNot(); // Defined in NavBarView 
+   });
+
     }
+
   </script>
             
           

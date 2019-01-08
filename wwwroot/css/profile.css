@@ -318,6 +318,10 @@ body{
     .noPadding{
         padding: 0px !important;
     }
+    .hid {
+        visibility: hidden !important;
+        display: none !important;
+    }
     @media only screen and (max-width: 993px){
         .fixAddbtn{
             

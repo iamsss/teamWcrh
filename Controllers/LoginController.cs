@@ -47,8 +47,7 @@ namespace teamWcrh.Controllers
             var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_config["Jwt:Key"]));
             var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
             var claims = new[] {  
-                new Claim(ClaimTypes.Role, user.UserRole),  
-                new Claim(JwtRegisteredClaimNames.Email, user.Email),  
+                new Claim(ClaimTypes.Role, user.UserRole),   
                 new Claim("UserId", Convert.ToString(user.UserId))
     };  
 

@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <script>
+           if(!Boolean(localStorage.getItem("Token")))
+        {
+            window.location.replace("/");
+        }
+    </script>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"]</title>
+<!--Import Google Icon Font-->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.1/css/all.css" integrity="sha384-gfdkjb5BdAXd+lj+gudLWI+BXq4IuLW5IT+brZEZsLFm++aCMlF1V92rMkPaX4PP"
+        crossorigin="anonymous">
+    <script defer src="https://use.fontawesome.com/releases/v5.6.1/js/all.js" integrity="sha384-R5JkiUweZpJjELPWqttAYmYM1P3SNEJRM6ecTQF05pFFtxmCO+Y1CiUhvuDzgSVZ"
+        crossorigin="anonymous"></script>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Slabo+27px|Staatliches" rel="stylesheet">
+    <!--Import materialize.css-->
+    <link type="text/css" rel="stylesheet" href="css/materialize.min.css" media="screen,projection" />
+    <link type="text/css" rel="stylesheet" href="css/profile.css" media="screen,projection" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script type="text/javascript" src="js/jquerry.min.js"></script> 
+    <script type="text/javascript" src="js/materialize.min.js"></script> 
+    <script src="lib/sweetalert/sweetalert.min.js"></script>
+    <script src="lib/vue/vue.js"></script>
+    
+</head>
+<body>
+ 
+            @RenderBody()
+    
+   
+      
+    <script src="js/Profile.js" asp-append-version="true"></script>
+
+    
+<footer class="page-footer">
+        <div class="marginTopBig"></div>
+        <div class="container center">
+            <img src="/img/wcrh-white.png" class="footer-logo" />
+        </div>
+
+        <div class="footer-copyright">
+            <div class="container letterSpace2">
+                © 2018 teamWCRH
+            </div>
+        </div>
+    </footer>
+              @RenderSection("Scripts", required: false)
+              <script>
+                   $(document).ready(function(){
+    $('.scrollspy').scrollSpy();
+  });
+              </script>
+
+</body>
+</html>

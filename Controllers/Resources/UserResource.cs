@@ -5,7 +5,8 @@ namespace teamWcrh.Controllers.Resources
     public class UserResource
     {
         public int UserId { get; set; }
-        public int UserName { get; set; }
+        public string UserName { get; set; }
+        public string Name { get; set; }
         public int Rp { get; set; }
         public int Cp { get; set; }
         

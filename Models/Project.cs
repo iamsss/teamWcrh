@@ -14,7 +14,7 @@ namespace teamWcrh.Models
         [StringLength(25)]
         public string Status { get; set; }
         
-       public IList<UserProject> UserProjects { get; set; }
+        public IList<UserProject> UserProjects { get; set; }
 
     }
 }

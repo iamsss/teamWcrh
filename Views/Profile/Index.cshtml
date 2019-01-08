@@ -1,0 +1,43 @@
+@{
+    ViewData["Title"] = "Profile Page";
+}
+
+
+<partial name="~/Views/Profile/_navbar.cshtml" />
+<div class="main main-raised">
+        <div class="container containerEdited">
+            <div id="about" class="section text-center section scrollspy">
+                <div class="features ">
+                    
+                <partial name="~/Views/Profile/_about.cshtml" />  
+                <partial name="~/Views/Profile/_function.cshtml" />   
+                
+<partial name="~/Views/Profile/_activity.cshtml" />
+<partial name="~/Views/Profile/_goal.cshtml" />
+<partial name="~/Views/Profile/_event.cshtml" />
+<partial name="~/Views/Profile/_addEventGoal.cshtml" />
+<partial name="~/Views/Profile/_editProfile.cshtml" />
+
+
+
+                    </div>
+                </div>
+             </div>
+      </div>
+
+
+    <script>
+        
+        $(document).ready(function () {
+            $('.tabs').tabs();
+        });
+
+
+
+        $(document).ready(function () {
+            $('.modal').modal();
+        });
+
+    
+    </script>
+

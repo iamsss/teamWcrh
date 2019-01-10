@@ -50,6 +50,7 @@ namespace teamWcrh.Persistence
         public DbSet<Event> Events { get; set; }
         public DbSet<Feed> Feeds { get; set; }
         public DbSet<Project> Projects { get; set; }
+        public DbSet<UserProject> UserProjects { get; set; }
         
 
     }

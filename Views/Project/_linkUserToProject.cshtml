@@ -1,0 +1,122 @@
+<div id="LinkUserToProject">
+    <h3 class="center">Link User To Project</h3>
+
+<form  onsubmit="sendLinkUserToProject(); return false;">
+                      <div class="row">
+                        <div class="col m6 s12">
+                          <div class="input-field">
+           
+    <select>
+      <option value="">Choose Project</option>
+      <option v-for ="(item, idx) in Projects" v-bind:value="item.projectId">{{item.name}}</option>
+   
+      </select>
+    <label>Select Project</label>
+  </div>
+         </div>
+                         <div class="col m6 s12">
+                          <div class="form-group bmd-form-group">
+                            <label class="bmd-label-floating">UserId</label>
+                            <input  type="number" required class="form-control validate" >
+                            <span class="helper-text" data-error="Please enter userid"></span>
+                          </div>
+                        </div>
+                        </div>
+                      
+                      <div class="row">
+                        <div class="text-center">
+                      <div id="linkLoader" class="preloaderDiv hide">                    
+                         <partial name="~/Views/Shared/Helper/_spinner.cshtml" />
+                  </div>
+                          <input type="submit" id="btnLinksend" class="btn btn-primary btn-raised pink" value="Add Now" >
+                        </div>
+                      </div>
+                      </form>  
+                      <ul>
+                          <li v-for="(item, index) in Projects">
+    {{ index }} - {{ item.name }}
+  </li>
+                      </ul>
+
+</div>
+<script>
+    $(document).ready(function(){
+    $('select').formSelect();
+  });
+  
+   var LinkUserToProject =  new Vue({
+    el:'#LinkUserToProject',
+    data(){
+    return {
+        Projects:[{
+            name:'Saurav'
+        }]
+    }
+    },
+mounted() {
+    this.getData();
+
+},
+
+methods: {
+   
+    getData() {
+         var _this = this; // normal this not working in instance
+
+       fetch('/api/Project')
+  .then(function(response) {
+    return response.json();
+  })
+  .then(function(projects) {
+      const projectArrays = [];
+      for(let project in projects){
+          projectArrays.push(projects[project])
+
+      }
+     _this.Projects = projectArrays;
+  });
+    }
+}
+
+   });
+
+
+
+
+function sendLinkUserToProject(){
+       
+        }
+
+var btnLinksend = $("#btnLinksend");
+var loader = $("#linkLoader");
+
+ function postLinkUserToProjectData(data){
+    loader.removeClass("hide");
+    btnLinksend.addClass("hide");
+    console.log(data);
+   fetch('/api/Project', {
+    method: 'post',
+    headers: {
+        'Accept': 'application/json, text/plain, */*',
+        'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(data)
+   })
+  .then(function (response) {
+    return response.json();
+   })
+  .then(function (result) {
+      swal("Thank you!", "Your Request is sent successfully", "success");
+      console.log(result);
+      clearData();
+  })
+  .catch(function (error) {
+       alert("Failed");
+       console.log('Request failed', error);
+}).finally(function() {
+  btnLinksend.removeClass("hide");
+  loader.addClass("hide");
+   });
+  }
+
+</script>

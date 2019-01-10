@@ -1,0 +1,100 @@
+<div id="AddForm">
+    <h1 class="center">Add Project</h1>
+
+<form id="joinForm"  onsubmit="sendAddProjectRequest(); return false;">
+                      <div class="row">
+                        <div class="col m6 s12">
+                          <div class="form-group bmd-form-group">
+                            <label class="bmd-label-floating">Name </label>
+                            <input  type="text" required class="form-control validate" v-model="Name" minlength="3" maxlength="25" >
+                            <span id="nameErrorMsg" class="helper-text" data-error="Please enter your name"></span>
+                          </div>
+                        </div>
+                         <div class="col m6 s12">
+                          <div class="form-group bmd-form-group">
+                            <label class="bmd-label-floating">Status</label>
+                            <input  type="text" required class="form-control validate" v-model="Status" minlength="3" maxlength="25" >
+                            <span id="statusErrorMsg" class="helper-text" data-error="Please enter project status"></span>
+                          </div>
+                        </div>
+                        </div>
+                      <div class="form-group bmd-form-group">
+                        <label for="exampleMessage" class="bmd-label-floating">Description</label>
+                        <textarea id="msgInp" required type="email" class="materialize-textarea" rows="4" v-model="Description"></textarea>
+                      </div>
+                      <div class="row">
+                        <div class="text-center">
+                      <div id="joinLoader" class="preloaderDiv hide">                    
+                         <partial name="~/Views/Shared/Helper/_spinner.cshtml" />
+                  </div>
+                          <input type="submit" id="btnsend" class="btn btn-primary btn-raised pink" value="Add Now" >
+                        </div>
+                      </div>
+                      </form>  
+
+</div>
+<script>
+   var AddForm =  new Vue({
+    el:'#AddForm',
+    data:
+    {
+        Name: '',
+        Status: '',
+        Description:'',
+        wel:'Welcome'
+    }
+    ,
+    methods: {
+             
+    }
+});
+
+function sendAddProjectRequest(){
+            const pro = {
+                Name: AddForm.Name,
+                Status: AddForm.Status,
+                Description: AddForm.Description
+            };
+            console.log("From Inside -> "+ pro);
+            postData(pro);
+            
+        }
+
+var btnsend = $("#btnsend");
+var loader = $("#joinLoader");
+
+ function postData(data){
+    loader.removeClass("hide");
+    btnsend.addClass("hide");
+    console.log(data);
+   fetch('/api/Project', {
+    method: 'post',
+    headers: {
+        'Accept': 'application/json, text/plain, */*',
+        'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(data)
+   })
+  .then(function (response) {
+    return response.json();
+   })
+  .then(function (result) {
+      swal("Thank you!", "Your Request is sent successfully", "success");
+      console.log(result);
+      clearData();
+  })
+  .catch(function (error) {
+       alert("Failed");
+       console.log('Request failed', error);
+}).finally(function() {
+  btnsend.removeClass("hide");
+  loader.addClass("hide");
+   });
+  }
+
+  function clearData(){
+      AddForm.Name = '';
+      AddForm.Status = '';
+      AddForm.Description = '';
+  }
+</script>

@@ -1,5 +1,9 @@
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel.DataAnnotations;
+using teamWcrh.Controllers.Resources.Project;
+
+using teamWcrh.Models;
 
 namespace teamWcrh.Controllers.Resources.User
 {
@@ -71,6 +75,11 @@ namespace teamWcrh.Controllers.Resources.User
         [StringLength(255)]
         public string ProfileUrl { get; set; }
         public string GalleryImage { get; set; }
-         public IList<int> Projects { get; set; }
+         public ICollection<KeyValueResource> Projects { get; set; }
+          
+          public ProfileResource()
+          {
+              Projects = new Collection<KeyValueResource>(); 
+          }
     }
 }

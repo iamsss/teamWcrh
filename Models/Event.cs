@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel.DataAnnotations;
 
 namespace teamWcrh.Models
@@ -26,7 +27,11 @@ namespace teamWcrh.Models
         public string EndTime { get; set; }
         public DateTime CreatedOn { get; set; }
         public int CreatedBy { get; set; }
-        public IList<UserEvent> UserEvents { get; set; }
+        public ICollection<UserEvent> UserEvents { get; set; }
+
+        public Event(){
+            UserEvents = new Collection<UserEvent>(); 
+        }
         
     }
 }

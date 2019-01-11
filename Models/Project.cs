@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel.DataAnnotations;
 
 namespace teamWcrh.Models
@@ -14,7 +15,11 @@ namespace teamWcrh.Models
         [StringLength(25)]
         public string Status { get; set; }
         
-        public IList<UserProject> UserProjects { get; set; }
+        public ICollection<UserProject> UserProjects { get; set; }
+
+        public Project(){
+            UserProjects =  new Collection<UserProject>();          
+        }
 
     }
 }

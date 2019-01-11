@@ -15,8 +15,8 @@ namespace teamWcrh.Mapping
             CreateMap<JoinRequestResource, JoinRequest>();
             CreateMap<ProjectResource, Project>();
             
-            CreateMap<User, ProfileResource>()
-            .ForMember(u => u.Projects, opt => opt.MapFrom(v => v.UserProjects.Select(up => up.ProjectId)));
-        }
+            CreateMap<User, ProfileResource>();
+            
+       }
     }
 }

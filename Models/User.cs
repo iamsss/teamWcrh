@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel.DataAnnotations;
 
 namespace teamWcrh.Models
@@ -72,8 +73,13 @@ namespace teamWcrh.Models
         public string ProfileUrl { get; set; }
         public string GalleryImage { get; set; }
 
-       public IList<UserEvent> UserEvents { get; set; }
-       public IList<UserProject> UserProjects { get; set; }
+       public ICollection<UserEvent> UserEvents { get; set; }
+       public ICollection<UserProject> UserProjects { get; set; }
 
+      public User()
+        {
+            UserEvents = new Collection<UserEvent>(); 
+            UserProjects = new Collection<UserProject>();          
     }
+}
 }

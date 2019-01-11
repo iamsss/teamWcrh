@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using teamWcrh.Persistence;
 
 namespace teamWcrh.Migrations
 {
     [DbContext(typeof(teamWCRHDbContext))]
-    partial class teamWCRHDbContextModelSnapshot : ModelSnapshot
+    [Migration("20190110121927_DeletingDbSetUserProject")]
+    partial class DeletingDbSetUserProject
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -67,7 +69,7 @@ namespace teamWcrh.Migrations
 
                     b.Property<DateTime>("CreatedOn");
 
-                    b.Property<string>("FeedUserPic")
+                    b.Property<string>("FeedPic")
                         .HasMaxLength(255);
 
                     b.Property<string>("Message")
@@ -78,19 +80,11 @@ namespace teamWcrh.Migrations
                         .IsRequired()
                         .HasMaxLength(50);
 
-                    b.Property<int>("ProjectId");
-
                     b.Property<bool>("Spam");
 
                     b.Property<string>("Status");
 
-                    b.Property<int>("UserId");
-
                     b.HasKey("FeedId");
-
-                    b.HasIndex("ProjectId");
-
-                    b.HasIndex("UserId");
 
                     b.ToTable("Feeds");
                 });
@@ -255,19 +249,6 @@ namespace teamWcrh.Migrations
                     b.HasIndex("ProjectId");
 
                     b.ToTable("UserProject");
-                });
-
-            modelBuilder.Entity("teamWcrh.Models.Feed", b =>
-                {
-                    b.HasOne("teamWcrh.Models.Project", "Project")
-                        .WithMany()
-                        .HasForeignKey("ProjectId")
-                        .OnDelete(DeleteBehavior.Cascade);
-
-                    b.HasOne("teamWcrh.Models.User", "User")
-                        .WithMany()
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade);
                 });
 
             modelBuilder.Entity("teamWcrh.Models.UserEvent", b =>

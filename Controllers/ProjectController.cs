@@ -70,12 +70,8 @@ namespace teamWcrh.Controllers
             var user = await context.Users.FindAsync(data.UserId);
             var project = await context.Projects.FindAsync(data.ProjectId);
             var ur = new UserProject{
-                User=user,
-                UserId = user.UserId,
-                Project= project,
                 ProjectId = project.ProjectId
             };
-            await context.UserProjects.AddAsync(ur);
              user.UserProjects.Add(ur);
             await context.SaveChangesAsync();
             return Ok("success");

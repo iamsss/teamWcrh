@@ -32,16 +32,6 @@ namespace teamWcrh.Persistence
 
             modelBuilder.Entity<UserProject>().HasKey(ue => new { ue.UserId, ue.ProjectId });
 
-            modelBuilder.Entity<UserProject>()
-          .HasOne<User>(sc => sc.User)
-        .WithMany(s => s.UserProjects)
-        .HasForeignKey(sc => sc.UserId);
-
-            modelBuilder.Entity<UserProject>()
-                .HasOne<Project>(sc => sc.Project)
-                .WithMany(s => s.UserProjects)
-                .HasForeignKey(sc => sc.ProjectId);
-
 
         }
 
@@ -50,7 +40,6 @@ namespace teamWcrh.Persistence
         public DbSet<Event> Events { get; set; }
         public DbSet<Feed> Feeds { get; set; }
         public DbSet<Project> Projects { get; set; }
-        public DbSet<UserProject> UserProjects { get; set; }
         
 
     }

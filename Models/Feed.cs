@@ -7,7 +7,7 @@ namespace teamWcrh.Models
     {
         public int FeedId { get; set; }
         [StringLength(255)]
-        public string FeedPic { get; set; }
+        public string FeedUserPic { get; set; }
         [Required]
         [StringLength(50)]
         public string Name { get; set; }
@@ -17,5 +17,12 @@ namespace teamWcrh.Models
         public string Status { get; set; }
         public bool Spam { get; set; }
         public DateTime CreatedOn { get; set; }
+        public int ProjectId  { get; set; }
+        public Project Project { get; set; }
+
+        public int UserId {get; set;}
+        public User User { get; set; }
+        
+
     }
 }

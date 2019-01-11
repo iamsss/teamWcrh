@@ -5,6 +5,8 @@ namespace teamWcrh.Controllers.Resources.Project
     public class ProjectResource
     {
         [Required]
+        public int ProjectId {get; set; }
+        [Required]
         public string Name { get; set; }
         [Required]
         public string Status { get; set; }

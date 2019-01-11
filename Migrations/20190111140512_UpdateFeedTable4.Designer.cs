@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using teamWcrh.Persistence;
 
 namespace teamWcrh.Migrations
 {
     [DbContext(typeof(teamWCRHDbContext))]
-    partial class teamWCRHDbContextModelSnapshot : ModelSnapshot
+    [Migration("20190111140512_UpdateFeedTable4")]
+    partial class UpdateFeedTable4
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -65,9 +67,8 @@ namespace teamWcrh.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("CreatedOn");
-
-                    b.Property<int?>("EventId");
+                    b.Property<DateTime>("CreatedOn")
+                        .HasColumnType("datetime2");
 
                     b.Property<string>("FeedUserPic")
                         .HasMaxLength(255);
@@ -80,17 +81,15 @@ namespace teamWcrh.Migrations
                         .IsRequired()
                         .HasMaxLength(50);
 
-                    b.Property<int?>("ProjectId");
+                    b.Property<int>("ProjectId");
 
                     b.Property<bool>("Spam");
 
                     b.Property<string>("Status");
 
-                    b.Property<int?>("UserId");
+                    b.Property<int>("UserId");
 
                     b.HasKey("FeedId");
-
-                    b.HasIndex("EventId");
 
                     b.HasIndex("ProjectId");
 
@@ -263,17 +262,15 @@ namespace teamWcrh.Migrations
 
             modelBuilder.Entity("teamWcrh.Models.Feed", b =>
                 {
-                    b.HasOne("teamWcrh.Models.Event", "Event")
-                        .WithMany()
-                        .HasForeignKey("EventId");
-
                     b.HasOne("teamWcrh.Models.Project", "Project")
                         .WithMany()
-                        .HasForeignKey("ProjectId");
+                        .HasForeignKey("ProjectId")
+                        .OnDelete(DeleteBehavior.Cascade);
 
                     b.HasOne("teamWcrh.Models.User", "User")
                         .WithMany()
-                        .HasForeignKey("UserId");
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 
             modelBuilder.Entity("teamWcrh.Models.UserEvent", b =>

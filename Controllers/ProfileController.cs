@@ -69,7 +69,7 @@ namespace teamWcrh.Controllers
            // return Ok(data);
         
         }
-         [Route("api/[controller]")]
+        [Route("api/[controller]")]
         [HttpPut("{id}")]
         public async Task<IActionResult> RemoveProject(int id, [FromBody] int projectId)
         {

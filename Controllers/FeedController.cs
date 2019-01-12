@@ -61,7 +61,7 @@ namespace teamWcrh.Controllers
         public async Task<IActionResult> GetFeedByProjectId([FromBody]int[] projects)
         {
 
-            var feeds = await context.Feeds.Where(u => projects.Contains(u.ProjectId)).ToListAsync();
+            var feeds = await context.Feeds.Where(u => projects.Contains(u.ProjectId.Value)).ToListAsync();
             
             var returnFeed = mapper.Map<List<Feed>, List<FeedResource>>(feeds);
 

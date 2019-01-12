@@ -31,6 +31,9 @@ namespace teamWcrh.Persistence
             // Many To Many Relation Configuration for UserProject
 
             modelBuilder.Entity<UserProject>().HasKey(ue => new { ue.UserId, ue.ProjectId });
+            // Many To Many Relation Configuration for UserGoal
+
+            modelBuilder.Entity<UserGoal>().HasKey(ue => new { ue.UserId, ue.GoalId });
 
 
         }
@@ -40,6 +43,7 @@ namespace teamWcrh.Persistence
         public DbSet<Event> Events { get; set; }
         public DbSet<Feed> Feeds { get; set; }
         public DbSet<Project> Projects { get; set; }
+        public DbSet<Goal> Goals { get; set; }
         
 
     }

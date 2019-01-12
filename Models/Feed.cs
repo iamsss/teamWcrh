@@ -18,7 +18,7 @@ namespace teamWcrh.Models
         public string Status { get; set; }
         public bool Spam { get; set; }
         public string CreatedOn { get; set; }
-        public int ProjectId  { get; set; }
+        public int? ProjectId  { get; set; }
         public Project Project { get; set; }
 
         public int? UserId {get; set;}

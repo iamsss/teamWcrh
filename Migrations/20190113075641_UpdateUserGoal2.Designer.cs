@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using teamWcrh.Persistence;
 
 namespace teamWcrh.Migrations
 {
     [DbContext(typeof(teamWCRHDbContext))]
-    partial class teamWCRHDbContextModelSnapshot : ModelSnapshot
+    [Migration("20190113075641_UpdateUserGoal2")]
+    partial class UpdateUserGoal2
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -105,21 +107,13 @@ namespace teamWcrh.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int>("CreatedBy");
+                    b.Property<string>("CreatedOn");
 
-                    b.Property<DateTime>("CreatedOn");
-
-                    b.Property<DateTime>("Deadline");
+                    b.Property<string>("Deadline");
 
                     b.Property<string>("Description");
 
-                    b.Property<DateTime>("ExpiresOn");
-
                     b.Property<string>("GoalFor");
-
-                    b.Property<string>("GoalJoinedBy");
-
-                    b.Property<string>("GoalRejectedBy");
 
                     b.Property<string>("GoalType");
 
@@ -290,14 +284,6 @@ namespace teamWcrh.Migrations
                     b.Property<int>("UserId");
 
                     b.Property<int>("GoalId");
-
-                    b.Property<int>("GoalForUserId");
-
-                    b.Property<DateTime>("JoinedOn");
-
-                    b.Property<string>("Message");
-
-                    b.Property<string>("Status");
 
                     b.HasKey("UserId", "GoalId");
 

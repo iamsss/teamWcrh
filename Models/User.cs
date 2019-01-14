@@ -75,14 +75,14 @@ namespace teamWcrh.Models
 
        public ICollection<UserEvent> UserEvents { get; set; }
        
-       public ICollection<UserGoal> UserGoals { get; set; }
+       public ICollection<UserGoal> Goals { get; set; }
        public ICollection<UserProject> UserProjects { get; set; }
 
       public User()
         {
             UserEvents = new Collection<UserEvent>(); 
             UserProjects = new Collection<UserProject>();     
-            UserGoals = new Collection<UserGoal>();     
+            Goals = new Collection<UserGoal>();     
     }
 }
 }

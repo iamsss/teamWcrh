@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
@@ -7,6 +8,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using teamWcrh.Controllers.Resources;
+using teamWcrh.Controllers.Resources.Goal;
 using teamWcrh.Controllers.Resources.User;
 using teamWcrh.Models;
 using teamWcrh.Persistence;
@@ -14,6 +16,7 @@ using teamWcrh.Persistence;
 namespace teamWcrh.Controllers
 {
    
+    
     public class ProfileController : Controller
     {
        
@@ -44,11 +47,11 @@ namespace teamWcrh.Controllers
            }
            return Ok(tempua);
         }
-        [Route("api/[controller]")]
-        [HttpGet("{id}")]
-        [Authorize]
+        [HttpGet("api/[controller]/{id}")]
         public async Task<IActionResult> GetUser(int id){
-            var ua =  await context.Users.Include(u => u.UserProjects).Where(user => user.UserId == id).FirstOrDefaultAsync();
+            var ua =  await context.Users.
+            Include(u => u.UserProjects)
+            .Include(u => u.Goals).Where(user => user.UserId == id).FirstOrDefaultAsync();
              
              var tem = mapper.Map<User, ProfileResource>(ua);
 
@@ -62,6 +65,18 @@ namespace teamWcrh.Controllers
                     tem.Projects.Add(temp);
              }
 
+             // Empty the temp.Goals
+             var goals = ua.Goals;
+             ICollection<GoalUserResource> go = new Collection<GoalUserResource>();
+             tem.Goals = go; 
+
+            // mapping of goal to GoalUserResources
+             foreach(var goal in goals){
+                 var tempGoal = await context.Goals.FindAsync(goal.GoalId);
+                 var userGoal = mapper.Map<UserGoal,GoalUserResource>(goal);
+                 var finalUserGoal = mapper.Map<Goal,GoalUserResource>(tempGoal,userGoal);
+                 tem.Goals.Add(userGoal);
+             }
            return Ok(tem);
 
            // var principal = HttpContext.User;

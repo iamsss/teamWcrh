@@ -44,6 +44,7 @@ namespace teamWcrh.Persistence
         public DbSet<Feed> Feeds { get; set; }
         public DbSet<Project> Projects { get; set; }
         public DbSet<Goal> Goals { get; set; }
+        public DbSet<UserGoal> UserGoal {get; set;}
         
 
     }

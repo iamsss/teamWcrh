@@ -1,0 +1,244 @@
+<div id="AddEventForm">
+  <form id="eventForm" onsubmit="sendEventRequest(); return false;">
+                                   <div class="input-field col s12 noPadding">
+                                        <select v-model="Event.ProjectId" required class="validate">
+                                          <option value="" disabled >Select Project</option>
+                                          <option value="1">Difpedia</option>
+                                          <option value="2">LoIndia</option>
+                                        </select>
+                                         
+                                        <label class="bmd-label-floating left">Select Project </label>
+                                      </div>
+                                        <div class="file-field input-field">
+                                                <div class="btn">
+                                                  <span>Image</span>
+                                                  <input type="file" id="eventImage">
+                                                </div>
+                                                <div class="file-path-wrapper">
+                                                  <input class="file-path validate" type="text">
+                                                </div>
+                                              </div>     
+                              <div class="form-group bmd-form-group">
+                                <label class="bmd-label-floating left">Name</label>
+                                <input type="text" class="form-control validate" required minlength="3" v-model="Event.Name" onkeyup="eventFormValidation()">
+                                 <span class="helper-text" v-bind:data-error="Error.Event.Name"></span>
+                              </div> 
+                              <div class="form-group bmd-form-group">
+                                  
+                                      <label for="exampleMessage" class="bmd-label-floating left">Description</label>
+                                      <textarea type="text" required minlength="10" maxlength="250" class="materialize-textarea validate" rows="4" v-model="Event.Description"  onkeyup="eventFormValidation()"></textarea>
+                                      <span class="helper-text" v-bind:data-error="Error.Event.Description"></span>
+                              
+                              </div>
+                              <div class="form-group bmd-form-group">
+                                    <label class="bmd-label-floating left">Location</label>
+                                    <input type="text" required class="form-control validate" v-model="Event.Location"  onkeyup="eventFormValidation()">
+                                    <span class="helper-text" v-bind:data-error="Error.Event.Location"></span>
+                              </div>
+                              <div class="form-group bmd-form-group">
+                                  
+                                      <label  class="bmd-label-floating left">Select Start Date</label>
+                                      <input type="date" id="startDate" required class=" validate" required v-model="Event.StartDate">
+                                       <span class="helper-text" v-bind:data-error="Error.Event.StartDate"></span>
+                              
+                                    </div>
+                                    <div class="form-group bmd-form-group">
+                                  
+                                            <label  class="bmd-label-floating left">Select End Date</label>
+                                            <input type="date" id="endDate" required class=""  v-model="Event.EndDate">   
+                                             <span class="helper-text" v-bind:data-error="Error.Event.EndDate"></span>
+                              
+                                          </div>
+                                          <div class="form-group bmd-form-group">
+                                  
+                                                <label  class="bmd-label-floating left">Start Time</label>
+                                                <input type="time" required class="timepicker" id="startTime"  type="time">
+                                                 <span class="helper-text" v-bind:data-error="Error.Event.StartTime"></span>
+                              
+                                              </div> 
+                                              <div class="form-group bmd-form-group">
+                                  
+                                                    <label  class="bmd-label-floating left">End Time</label>
+                                                    <input type="time" required class="timepicker" id="endTime" type="time">
+                                                    <span class="helper-text" v-bind:data-error="Error.Event.EndTime"></span>
+                              
+                                                  </div>
+                                    
+                                        <div class="row">
+                                          
+                                         <div class="col-md-4 ml-auto mr-auto text-center">
+                                              <div v-if="isEventBtnClick" class="preloaderDiv">                    
+                                                    <partial name="~/Views/Shared/Helper/_spinner.cshtml" />
+                                             </div>
+                                                <button v-if="!isEventBtnClick" type="submit" class="btn btn-primary btn-raised pink" >
+                                                  Add Event
+                                                </button>
+                                              </div>
+                                            </div>
+                                            </form>
+                                            </div>
+                            
+<script>
+// Data to bind to Event Error Data in Vue
+var eventErrorData = {
+  Name : "Please enter event name",
+  Location: "Please enter location",
+  Description: "Please add details about event",
+  ProjectId: "Please select project",
+  StartDate : "Please select event starting date",
+  EndDate : "Please Select event ending date",
+  StartTime : "Please select event starting Time",
+  EndTime : "Please Select event ending Time"
+}
+
+
+ // Data to bind to Error Data in Vue
+var errorData = {
+  Event: eventErrorData
+}
+
+// Initial Event Data
+var eventData = {
+  "ProjectId":"",
+  "Name":"",
+  "Description":"",
+  "ImageFile":null,
+  "Location":"",
+  "StartDate":"", 
+  "EndDate":"",
+  "StartTime":"",
+  "EndTime":""  
+}
+
+var AddEventForm = new Vue({
+  el: '#AddEventForm',
+  data: { 
+    Event : eventData,
+    Error: errorData, // Error.Event.Name -> error for name // 
+    
+    isEventBtnClick:false
+   },
+    methods: {
+        sendData: function(){        
+          var formData = GetEventFormData();
+           this.isEventBtnClick = true;
+           var emptyEventdata = eventData;
+           var _this = this;
+           console.log(formData);
+    fetch('/api/Event', {
+    method: 'post', 
+    headers: {
+    'Accept': 'application/json'
+    },
+    body: formData
+   })
+  .then(function (response) {
+    return response.json();
+   })
+  .then(function (result) {
+      swal("Thank you!", "Your Request is sent successfully", "success");
+      _this.Event = emptyEventdata; // To Empty the Input Field 
+  })
+  .catch(function (error) {
+       alert("Failed");
+       console.log('Request failed', error);
+}).finally(function() {
+           
+           _this.isEventBtnClick = false;
+   });
+
+        } // SendData 
+}// methods 
+});
+
+function sendEventRequest(){
+  AddEventForm.sendData();
+}
+
+      // Initilizing DatePicker
+      $(document).ready(function(){ 
+        var options = {
+    selectMonths: true, // Creates a dropdown to control month
+    selectYears: 15, // Creates a dropdown of 15 years to control year
+    format: 'dd-mm-yyyy' };
+
+        var elems = document.querySelectorAll('.datepicker');
+        var instances = M.Datepicker.init(elems, options);
+
+    // Initilizing Time Picker
+    opt = { twelveHour:false }
+    var elems = document.querySelectorAll('.timepicker');
+    var instances = M.Timepicker.init(elems, opt);
+
+   
+    $('#startDate').on('change', function() {
+        let receivedVal = $(this).val();
+        AddEventForm.Event.StartDate = receivedVal;
+    }); 
+    $('#endDate').on('change', function() {
+        let receivedVal = $(this).val();
+        AddEventForm.Event.EndDate = receivedVal;
+    });
+    $('#startTime').on('change', function() {
+        let receivedVal = $(this).val()+":00";
+        AddEventForm.Event.StartTime = receivedVal;
+    }); 
+    $('#endTime').on('change', function() {
+        let receivedVal = $(this).val()+":00";
+        AddEventForm.Event.EndTime = receivedVal;
+    });
+   
+  });
+  
+
+
+//Get Event Form Data
+function GetEventFormData(){
+              var formData = new FormData();
+              // Setting the image 
+              console.log(AddEventForm.Event);
+              var fileInput = document.getElementById('eventImage');
+              var file = fileInput.files[0]; 
+              console.log(file);
+              formData.append('ImageFile',file) ;
+              formData.append('ProjectId',AddEventForm.Event.ProjectId);
+              formData.append('Name',AddEventForm.Event.Name);
+              formData.append('Location',AddEventForm.Event.Location);
+              formData.append('Description',AddEventForm.Event.Description);
+              formData.append('StartDate',AddEventForm.Event.StartDate);
+              formData.append('EndDate',AddEventForm.Event.EndDate);
+              formData.append('StartTime',AddEventForm.Event.StartTime);
+              formData.append('EndTime',AddEventForm.Event.EndTime);
+              return formData;
+}
+
+
+
+function eventFormValidation() {
+    if( AddEventForm.Event.Name.length<3 && AddEventForm.Event.Name.length != 0){    
+      AddEventForm.Error.Event.Name = "Event name is too short";
+    } else if(AddEventForm.Event.Name.length == 0){  
+      AddEventForm.Error.Event.Name = "Please enter event name";
+    }else{
+      AddEventForm.Error.Event.Name = "";
+    }
+    if( AddEventForm.Event.Description.length<10 && AddEventForm.Event.Description.length != 0){    
+      AddEventForm.Error.Event.Description = "Event description is too short";
+    } else if(AddEventForm.Event.Description.length == 0){  
+      AddEventForm.Error.Event.Description = "Please enter event description";
+    }else{
+      AddEventForm.Error.Event.Description = "";
+    }
+    if( AddEventForm.Event.Location.length<3 && AddEventForm.Event.Location.length != 0){    
+      AddEventForm.Error.Event.Location = "Please add location in details";
+    } else if(AddEventForm.Event.Location.length == 0){  
+      AddEventForm.Error.Event.Location = "Please enter event location";
+    }else{
+      AddEventForm.Error.Event.Location = "";
+    }
+  }
+
+
+
+
+</script>

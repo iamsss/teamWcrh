@@ -13,6 +13,7 @@ namespace teamWcrh.Models
         public string GoalRejectedBy { get; set; } // Contains All user who reject this goal
         public string Description { get; set; }
         public string GoalType { get; set; } // All,Project Specific,Other
+        public string EndTime { get; set; } // Time to which goal Ended
         public  DateTime Deadline { get; set; }
         public DateTime ExpiresOn { get; set; } // Date After which no one can Join the goal
         public int CreatedBy { get; set; }

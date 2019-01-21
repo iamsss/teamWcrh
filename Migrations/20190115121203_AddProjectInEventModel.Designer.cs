@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using teamWcrh.Persistence;
 
 namespace teamWcrh.Migrations
 {
     [DbContext(typeof(teamWCRHDbContext))]
-    partial class teamWCRHDbContextModelSnapshot : ModelSnapshot
+    [Migration("20190115121203_AddProjectInEventModel")]
+    partial class AddProjectInEventModel
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -116,8 +118,6 @@ namespace teamWcrh.Migrations
                     b.Property<DateTime>("Deadline");
 
                     b.Property<string>("Description");
-
-                    b.Property<string>("EndTime");
 
                     b.Property<DateTime>("ExpiresOn");
 

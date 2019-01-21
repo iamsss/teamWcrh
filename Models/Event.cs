@@ -27,6 +27,10 @@ namespace teamWcrh.Models
         public string EndTime { get; set; }
         public DateTime CreatedOn { get; set; }
         public int CreatedBy { get; set; }
+
+        public int? ProjectId { get; set; }
+        public Project Project { get; set; }
+
         public ICollection<UserEvent> UserEvents { get; set; }
 
         public Event(){

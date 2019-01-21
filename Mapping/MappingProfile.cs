@@ -1,6 +1,7 @@
 using System.Linq;
 using AutoMapper;
 using teamWcrh.Controllers.Resources;
+using teamWcrh.Controllers.Resources.Event;
 using teamWcrh.Controllers.Resources.Feed;
 using teamWcrh.Controllers.Resources.Goal;
 using teamWcrh.Controllers.Resources.Project;
@@ -22,6 +23,8 @@ namespace teamWcrh.Mapping
             CreateMap<GoalResource, Goal>();   
             CreateMap<UserGoal, GoalUserResource>();
             CreateMap<Goal, GoalUserResource>();
+            CreateMap<EventResource, Event>();  
+            CreateMap< Event , EventResource>();   
 
             
        }

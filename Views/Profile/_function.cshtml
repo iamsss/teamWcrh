@@ -1,14 +1,13 @@
  <div class="pt30">
-                        <div class="row">
+                        <div id="chooseProjectVue" class="row">
                             <div class="input-field col s12  center maxW300 mg30H pink-text">
-                                    <select>
+                                    <select v-model="SelectedProjectId">
                                       <option value="" disabled selected>Choose your project</option>
-                                      <option value="1">Difpedia</option>
-                                      <option value="2">LoIndia</option>
-                                      <option value="3">IotHub</option>
+                                       <option v-for ="(item, idx) in Projects" v-bind:value="item.id">{{item.name}}</option>
+   
                                     </select>
                                     <label>Select Project</label>
-                                  </div>
+                              </div>
                                 </div>
                         <ul id="tabs-swipe-demo" class="tabs">
                             <li class="tab col s3"><a href="#test-swipe-1">Activity</a></li>
@@ -16,3 +15,24 @@
                              <li class="tab col s3"><a href="#test-swipe-3">Event</a></li>
                         </ul>
                     </div>
+
+  <script>
+    console.log("Global USer");
+    console.log(global_user);
+var chooseProjectVue =  new Vue({
+    el:'#chooseProjectVue',
+    data:
+    {
+        SelectedProjectId: '',
+        Projects: global_user.projects // declare in _globalVar.cshtml 
+    }
+    ,
+    methods: {
+             
+    }
+
+}); // end chooseProjectVue
+
+
+
+  </script>

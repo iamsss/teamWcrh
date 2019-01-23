@@ -1,235 +1,263 @@
 <div id="AddGoalForm">
   <form id="goalForm" onsubmit="sendGoalRequest(); return false;">
-                                    
-                                    <div class="input-field col s12 noPadding">
-                                        <select name="GoalType" v-model="Goal.ProjectId"  > <!-- Validate by js -->
-                                          <option value="" >Select Project</option>
-                                          <option value="0">All</option>
-                                          <option value="1">Difpedia</option>
-                                          <option value="2">LoIndia</option>
-                                        </select>
-                                        <label class="bmd-label-floating left">Select Project</label>
-                                    </div>
-                                      <div class="input-field col s12 noPadding">
-                                        <select name="GoalFor" v-model="Goal.GoalType" >
-                                          <option value="" disabled >Select Goal For</option> <!-- Validate by js -->
-                                          <option value="Myself">Myself</option>
-                                          <option value="All">All Member</option>
-                                          <option value="Project Specific">All Project Member</option>
-                                          <option value="Others">Specific User</option>
-                                        </select>
-                                        <label class="bmd-label-floating left">Select GoalFor</label>
-                                      </div>
-                                          <div v-show="Goal.GoalType == 'Others'" class="col s12 ">
-                            <label class="bmd-label-floating left">Enter UserId</label>
-                          <div id="goalFor" class="chips chips-placeholder margin0 "></div> <!-- Validate by js -->
-                        </div>
-                                      
-                                
-                                     
-                            <div class="form-group bmd-form-group">
-                              <label class="bmd-label-floating  left">Goal Name</label>
-                              <input type="text" name="GoalName" class="form-control validate" required minlength="3" 
-                              maxlength="25" v-model="Goal.Name"  onkeyup="GoalFormValidation()">
-                              <span class="helper-text" v-bind:data-error="Error.Name"></span>
-                            </div>
-                            <div class="form-group bmd-form-group">
-                                
-                                    <label  class="bmd-label-floating left validate">Description</label>
-                                    <textarea type="text" name="GoalDescription" class="materialize-textarea validate"  required rows="4" minlength="10"
-                                     maxlength="250" v-model="Goal.Description" onkeyup="GoalFormValidation()"></textarea>
-                                    <span class="helper-text" v-bind:data-error="Error.Description"></span>
-                              
-                            </div>
-                            <div class="form-group bmd-form-group">
-                                
-                                    <label  class="bmd-label-floating left">Select End Date</label>
-                                    <input name="GoalEndDate" type="date" id="goalDeadLine" class="validate" required>
-                                        <span class="helper-text" v-bind:data-error="Error.Deadline"></span>
-                              </div>
-                                  <div class="form-group bmd-form-group">
-                                  
-                                                <label  class="bmd-label-floating left">End Time</label>
-                                                <input type="time" name="GoalEndTime" required class="timepicker validate" id="goalEndTime"  type="time">
-                                                 <span class="helper-text" v-bind:data-error="Error.EndTime"></span>
-                              
-                                              </div> 
-                                  <div class="input-field col s12 noPadding">
-                                        <select  name="pl" v-model="Goal.PriorityLevel"> <!-- Validate by js -->
-                                          <option value="" disabled >Priority Level</option>
-                                          <option value="1">1</option>
-                                          <option value="2">2</option>
-                                          <option value="3">3</option>
-                                          
-                                          <option value="4">4</option>
-                                          
-                                          <option value="5">5</option>
-                                        </select>
-                                        <label class="bmd-label-floating left">Select Priotity Level </label>
-                                      </div>
-                                      <div class="row">
-                                              <div v-if="isGoalBtnClick" class="preloaderDiv">                    
-                         <partial name="~/Views/Shared/Helper/_spinner.cshtml" />
-                  </div>
-                                            <div v-if="!isGoalBtnClick" class="col-md-4 ml-auto mr-auto text-center">
-                                              <button type="submit" class="btn btn-primary btn-raised pink">
-                                                Add Goal
-                                              </button>
-                                            </div>
-                                          </div>
-                                          </form>
-                                          </div>
+
+    <div class="input-field col s12 noPadding">
+      <select name="GoalType" v-model="Goal.ProjectId">
+        <!-- Validate by js -->
+        <option value="">Select Project</option>
+        <option value="0">All</option>
+        <option v-for="(item, idx) in Projects" v-bind:value="item.id">{{item.name}}</option>
+
+      </select>
+      <label class="bmd-label-floating left">Select Project</label>
+    </div>
+    <div class="input-field col s12 noPadding">
+      <select name="GoalFor" v-model="Goal.GoalType">
+        <option value="" disabled>Select Goal For</option> <!-- Validate by js -->
+        <option value="Myself">Myself</option>
+        <option value="All">All Member</option>
+        <option value="Project Specific">All Project Member</option>
+        <option value="Others">Specific User</option>
+      </select>
+      <label class="bmd-label-floating left">Select GoalFor</label>
+    </div>
+    <div v-show="Goal.GoalType == 'Others'" class="col s12 ">
+      <label class="bmd-label-floating left">Enter UserId</label>
+      <div id="goalFor" class="chips chips-placeholder margin0 "></div> <!-- Validate by js -->
+    </div>
+
+
+
+    <div class="form-group bmd-form-group">
+      <label class="bmd-label-floating  left">Goal Name</label>
+      <input type="text" name="GoalName" class="form-control validate" required minlength="3" maxlength="25" v-model="Goal.Name"
+        onkeyup="GoalFormValidation()">
+      <span class="helper-text" v-bind:data-error="Error.Name"></span>
+    </div>
+    <div class="form-group bmd-form-group">
+
+      <label class="bmd-label-floating left validate">Description</label>
+      <textarea type="text" name="GoalDescription" class="materialize-textarea validate" required rows="4" minlength="10"
+        maxlength="250" v-model="Goal.Description" onkeyup="GoalFormValidation()"></textarea>
+      <span class="helper-text" v-bind:data-error="Error.Description"></span>
+
+    </div>
+    <div class="form-group bmd-form-group">
+
+      <label class="bmd-label-floating left">Select End Date</label>
+      <input name="GoalEndDate" type="date" id="goalDeadLine" class="validate" required>
+      <span class="helper-text" v-bind:data-error="Error.Deadline"></span>
+    </div>
+    <div class="form-group bmd-form-group">
+
+      <label class="bmd-label-floating left">End Time</label>
+      <input type="time" name="GoalEndTime" required class="timepicker validate" id="goalEndTime" type="time">
+      <span class="helper-text" v-bind:data-error="Error.EndTime"></span>
+
+    </div>
+    <div class="input-field col s12 noPadding">
+      <select name="pl" v-model="Goal.PriorityLevel">
+        <!-- Validate by js -->
+        <option value="" disabled>Priority Level</option>
+        <option value="1">1</option>
+        <option value="2">2</option>
+        <option value="3">3</option>
+
+        <option value="4">4</option>
+
+        <option value="5">5</option>
+      </select>
+      <label class="bmd-label-floating left">Select Priotity Level </label>
+    </div>
+    <div class="row">
+      <div v-if="isGoalBtnClick" class="preloaderDiv">
+        <partial name="~/Views/Shared/Helper/_spinner.cshtml" />
+      </div>
+      <div v-if="!isGoalBtnClick" class="col-md-4 ml-auto mr-auto text-center">
+        <button type="submit" class="btn btn-primary btn-raised pink">
+          Add Goal
+        </button>
+      </div>
+    </div>
+  </form>
+</div>
 
 <script>
+  // Data to bind to Goal Error Data in Vue
+  var goalErrorData = {
+    Name: "Please enter name of goal",
+    GoalType: "Please select goal belongs to",
+    GoalFor: "Please enter userid for which goal belongs to",
+    ProjectId: "Please select project for goal",
+    Description: "Please enter goal description",
+    Deadline: "Please select deadline date",
+    EndTime: "Please select deadline time",
+    PriorityLevel: "Please select priority level of goal"
+  }
 
- // Data to bind to Goal Error Data in Vue
-var goalErrorData = {
-  Name : "Please enter name of goal",
-  GoalType: "Please select goal belongs to",
-  GoalFor: "Please enter userid for which goal belongs to",
-  ProjectId: "Please select project for goal",
-  Description: "Please enter goal description",
-  Deadline: "Please select deadline date",
-  EndTime: "Please select deadline time",
-  PriorityLevel:"Please select priority level of goal"
-}
-
-//Goal input Data  ==> Default Value
-var goalData = {
-  "ProjectId":"",
-  "Name":"",
-  "Description":"",
-  "GoalType":"", // in client side it is GoalFor "Others", "All" etc
-  "GoalFor":"", // it is #1 #2 
-  "Deadline":"",
-  "PriorityLevel":"",
-  "EndTime":""
-}
+  //Goal input Data  ==> Default Value
+  var goalData = {
+    "ProjectId": "",
+    "Name": "",
+    "Description": "",
+    "GoalType": "", // in client side it is GoalFor "Others", "All" etc
+    "GoalFor": "", // it is #1 #2 
+    "Deadline": "",
+    "PriorityLevel": "",
+    "EndTime": ""
+  }
 
 
-var AddGoalForm = new Vue({
-  el: '#AddGoalForm',
-  data: { 
-    Goal : goalData, // Setting Defalut Input Value
-    Error: goalErrorData, // Error.Goal.Name -> error for name // 
-    isGoalBtnClick:false
+  var AddGoalForm = new Vue({
+    el: '#AddGoalForm',
+    data: {
+      Goal: goalData, // Setting Defalut Input Value
+      Error: goalErrorData, // Error.Goal.Name -> error for name // 
+      isGoalBtnClick: false,
+      Projects: global_user.projects
 
-   }, // end of data
-   
+    }, // end of data
+
     methods: {
-        sendData: function(){        
-          var formData = GetGoalFormData();
-           this.isGoalBtnClick = true;
-           var data = this.Goal;
-           var _this = this;
-  
-            console.log(formData);
-        } // SendData 
-}// methods 
+      sendEventData: function () {
+        this.isGoalBtnClick = true;
+        var data = this.Goal;
+        var _this = this;
 
-});// end of vue
+        fetch('/api/Goal', {
+            method: 'post',
+            headers: {
+              'Accept': 'application/json, text/plain, */*',
+              'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(data)
+          })
+          .then(function (response) {
+            return response.json();
+          })
+          .then(function (result) {
+            swal("Thank you!", "Your Request is sent successfully", "success");
+            console.log(result);
+          })
+          .catch(function (error) {
+            alert("Failed");
+             swal("Oupsss...", "Something went wrong", "error");
+          }).finally(function () {
+            _this.isGoalBtnClick = false;
+          }); // end fetch request
 
 
-$('#goalDeadLine').on('change', function() {
-        let receivedVal = $(this).val();
-        AddGoalForm.Goal.Deadline = receivedVal;
-    });
-// Goal End Time
- $('#goalEndTime').on('change', function() {
-        let receivedVal = $(this).val()+":00";
-        AddGoalForm.Goal.EndTime = receivedVal;
-    }); 
+      } // SendData 
 
-// Initializing Materialize Chips
-    $('.chips-placeholder').chips({
+    } // methods 
+
+  }); // end of vue
+
+
+  $('#goalDeadLine').on('change', function () {
+    let receivedVal = $(this).val();
+    AddGoalForm.Goal.Deadline = receivedVal;
+  });
+  // Goal End Time
+  $('#goalEndTime').on('change', function () {
+    let receivedVal = $(this).val() + ":00";
+    AddGoalForm.Goal.EndTime = receivedVal;
+  });
+
+  // Initializing Materialize Chips
+  $('.chips-placeholder').chips({
     placeholder: 'Enter Users Id',
     secondaryPlaceholder: '+UserId',
   });
 
-  //Converting Chips into Data 
-  function chips2UserIds(){
-            console.log("Running");
-            var instance = M.Chips.getInstance(document.getElementById('goalFor'));
-            console.log(instance);
-            chipData =  "";
-            for(var i=0; i<instance.chipsData.length; i++){
-                    chipData += instance.chipsData[i].tag + "# "; //csv
-                    console.log("inside loop " + chipData);
-            }
-           return chipData;
-        }
+  //Converting Chips into Data  For geting userIds
+  function chips2UserIds() {
+    console.log("Running");
+    var instance = M.Chips.getInstance(document.getElementById('goalFor'));
+    console.log(instance);
+    chipData = "";
+    for (var i = 0; i < instance.chipsData.length; i++) {
+      chipData += instance.chipsData[i].tag + "# "; //csv
+      console.log("inside loop " + chipData);
+    }
+    return chipData;
+  }
 
-// to checks chips userids data is int or not , if valid return "Ok" else error Message
-  function toCheckChipsDataTypeInt(){
-  var str = AddGoalForm.Goal.GoalFor;
-  var res = str.split("# ");
-  count = 0;
-  for(var i=0;i<res.length;i++){
-  		if(!parseInt(res[i]) && res[i]!=""){
-        return res[i] +" is not valid userId";
-      }      
+  // to checks chips userids data is int or not , if valid return "Ok" else error Message
+  function toCheckChipsDataTypeInt() {
+    var str = AddGoalForm.Goal.GoalFor;
+    var res = str.split("# ");
+    count = 0;
+    for (var i = 0; i < res.length; i++) {
+      if (!parseInt(res[i]) && res[i] != "") {
+        return res[i] + " is not valid userId";
+      }
+    }
+    return "Ok"
   }
-  return "Ok"
-  }
-  
-  function sendGoalRequest(){
-    
+
+  function sendGoalRequest() {
+
     AddGoalForm.Goal.GoalFor = chips2UserIds(); // Initilizing Data
 
-    if(getValidationMessage() != "Ok"){
-          swal("Oupss", getValidationMessage(), "error");
-          return;
+    // Javascript Validation of select and chips fields
+    if (getValidationMessage() != "Ok") {
+      swal("Oupss", getValidationMessage(), "error");
+      return;
     }
-    
-  console.log(AddGoalForm.Goal);
-  alert("Work");
 
-  }  // end SendGoalRequest()
+    //After that User is validate
+
+    AddGoalForm.sendEventData();
+
+  } // end SendGoalRequest()
+
+  function postEventData() {
+
+  } // end PostData()
 
 
-function getValidationMessage(){ // return errorMessage or "Ok"
-    if(AddGoalForm.Goal.ProjectId == ""){
+  function getValidationMessage() { // return errorMessage or "Ok"
+    if (AddGoalForm.Goal.ProjectId == "") {
       return AddGoalForm.Error.ProjectId;
     }
-    if(AddGoalForm.Goal.PriorityLevel == ""){
+    if (AddGoalForm.Goal.PriorityLevel == "") {
       return AddGoalForm.Error.PriorityLevel;
     }
-    if(AddGoalForm.Goal.GoalType == ""){
+    if (AddGoalForm.Goal.GoalType == "") {
       return AddGoalForm.Error.GoalType;
     }
 
-    if(AddGoalForm.Goal.GoalType == "Others"){
-      if(AddGoalForm.Goal.GoalFor == ""){
+    if (AddGoalForm.Goal.GoalType == "Others") {
+      if (AddGoalForm.Goal.GoalFor == "") {
         return AddGoalForm.Error.GoalFor;
-      }else if(toCheckChipsDataTypeInt() != "Ok") {
+      } else if (toCheckChipsDataTypeInt() != "Ok") {
         return toCheckChipsDataTypeInt();
       }
-   }
+    }
 
-   return "Ok"; //Success
+    return "Ok"; //Success
 
-} // end getFormValidation
-
-
+  } // end getFormValidation
 
 
 
-function GoalFormValidation() {
-    if( AddGoalForm.Goal.Name.length<3 && AddGoalForm.Goal.Name.length != 0){    
+
+
+  function GoalFormValidation() {
+    if (AddGoalForm.Goal.Name.length < 3 && AddGoalForm.Goal.Name.length != 0) {
       AddGoalForm.Error.Name = "Goal name is too short";
-    } else if(AddGoalForm.Goal.Name.length == 0){  
+    } else if (AddGoalForm.Goal.Name.length == 0) {
       AddGoalForm.Error.Name = "Please enter Goal name";
-    }else{
+    } else {
       AddGoalForm.Error.Name = "";
     }
-    if( AddGoalForm.Goal.Description.length<10 && AddGoalForm.Goal.Description.length != 0){    
+    if (AddGoalForm.Goal.Description.length < 10 && AddGoalForm.Goal.Description.length != 0) {
       AddGoalForm.Error.Description = "Goal description is too short";
-    } else if(AddGoalForm.Goal.Description.length == 0){  
+    } else if (AddGoalForm.Goal.Description.length == 0) {
       AddGoalForm.Error.Description = "Please enter Goal description";
-    }else{
+    } else {
       AddGoalForm.Error.Description = "";
     }
   }
-
-
 </script>

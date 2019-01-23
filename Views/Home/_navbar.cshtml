@@ -88,16 +88,16 @@ $(document).ready(function(){
 
     // lOGOUT FUNCTION
     function logout(){
-      alert("click");
 
       localStorage.removeItem("Token");
       localStorage.removeItem("UserResource");
-      checkedLogInOrNot();
+       window.location.replace("/");
+      checkedLogInOrNot(); // Just for togall login n logout button
     }
 
 
 
-  function checkedLogInOrNot(){
+  function checkedLogInOrNot(){ // Just for togall login n logout button
           if(Boolean(localStorage.getItem("Token"))){
 
               $("#logoutBtn").removeClass("hide");

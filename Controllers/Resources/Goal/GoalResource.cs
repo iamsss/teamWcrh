@@ -16,7 +16,7 @@ namespace teamWcrh.Controllers.Resources.Goal
         public  string Deadline { get; set; }
         public string EndTime { get; set; } 
         public string ExpiresOn { get; set; } // Date After which no one can Join the goal
-        public int CreatedBy { get; set; }
+        public int? CreatedBy { get; set; }
         public string PriorityLevel { get; set; } // 1 to 5
     }
 }

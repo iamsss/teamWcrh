@@ -3,8 +3,8 @@
                                    <div class="input-field col s12 noPadding">
                                         <select v-model="Event.ProjectId" required class="validate">
                                           <option value="" disabled >Select Project</option>
-                                          <option value="1">Difpedia</option>
-                                          <option value="2">LoIndia</option>
+                                          <option v-for ="(item, idx) in Projects" v-bind:value="item.id">{{item.name}}</option>
+   
                                         </select>
                                          
                                         <label class="bmd-label-floating left">Select Project </label>
@@ -115,7 +115,7 @@ var AddEventForm = new Vue({
   data: { 
     Event : eventData,
     Error: errorData, // Error.Event.Name -> error for name // 
-    
+    Projects: global_user.projects,
     isEventBtnClick:false
    },
     methods: {
@@ -238,7 +238,8 @@ function eventFormValidation() {
     }
   }
 
-
+console.log("Event Project");
+console.log(AddEventForm.Projects);
 
 
 </script>

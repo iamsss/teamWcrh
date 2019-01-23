@@ -14,13 +14,15 @@
                     </div>
 </div>
 
+
 <script>
-    user = JSON.parse(localStorage.getItem("UserResource"));
    
     var about_vue = new Vue({
   el: '#vue_about',
   data: {
-    ur: user
+    ur:  global_user
   }
-})
+  
+});
+
 </script>

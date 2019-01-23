@@ -1,14 +1,20 @@
 using System;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.IdentityModel.Tokens.Jwt;
+using System.Linq;
 using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 using teamWcrh.Controllers.Resources;
+using teamWcrh.Controllers.Resources.Goal;
+using teamWcrh.Controllers.Resources.User;
 using teamWcrh.Models;
 using teamWcrh.Persistence;
 
@@ -42,7 +48,7 @@ namespace teamWcrh.Controllers
             return  Ok(ar);
         }
 
-        private string BuildToken(UserResource user)
+        private string BuildToken(ProfileResource user)
         {
             var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_config["Jwt:Key"]));
             var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
@@ -62,7 +68,10 @@ namespace teamWcrh.Controllers
 
         private async Task<AuthenticateResource> Authenticate(LoginResource login)
         {
-            var user = await context.Users.FindAsync(login.UserId);
+            var user = await context.Users.
+            Include(u => u.UserProjects)
+            .Include(u => u.Goals).Where(ur => ur.UserId == login.UserId).FirstOrDefaultAsync();
+
             AuthenticateResource ar = new AuthenticateResource{ 
                 Status = false,
                 Token = "",
@@ -73,7 +82,31 @@ namespace teamWcrh.Controllers
             if(user != null){
                 if(user.Password == login.Password){
                     ar.Status = true;
-                    ar.UserResource = mapper.Map<User, UserResource>(user);
+                    ar.UserResource = mapper.Map<User, ProfileResource>(user);
+
+                     // Mapping Of Projects to ProjectUser
+             foreach(var project in user.UserProjects){
+                 var pro = await context.Projects.FindAsync(project.ProjectId);
+                    var temp = new KeyValueResource {
+                        Id = project.ProjectId,
+                        Name = pro.Name
+                    };
+                   ar.UserResource.Projects.Add(temp);
+             }
+
+             // Empty the temp.Goals
+             var goals = user.Goals;
+             ICollection<GoalUserResource> go = new Collection<GoalUserResource>();
+            ar.UserResource.Goals = go; 
+
+            // mapping of goal to GoalUserResources
+             foreach(var goal in goals){
+                 var tempGoal = await context.Goals.FindAsync(goal.GoalId);
+                 var userGoal = mapper.Map<UserGoal,GoalUserResource>(goal);
+                 var finalUserGoal = mapper.Map<Goal,GoalUserResource>(tempGoal,userGoal);
+                ar.UserResource.Goals.Add(userGoal);
+             }
+
                     ar.Token = BuildToken(ar.UserResource);
                 }else{
                     ar.ErrorMessage = "Your password is incorrect";
